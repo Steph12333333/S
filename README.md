@@ -11,7 +11,7 @@ The models evaluated are:
 * Logistic Regression
 * Decision Tree
 * Random Forest
-* XGBoost
+* XGBoost Classifier
 
 The project was developed using Python in Google Colab.
 
@@ -42,11 +42,11 @@ The Random Forest model was tuned using:
 * `min_samples_split`
 * `n_estimators`
 
-The additional `n_estimators` parameter controls the number of decision trees used in the forest.
+The `n_estimators` parameter controls the number of decision trees used in the forest.
 
-### XGBoost
+### XGBoost Classifier
 
-XGBoost(XGB CLASSIFIER) was included as a gradient-boosting model for comparison with the other classification approaches.
+XGBoost Classifier was included as a gradient-boosting model for comparison with the other classification approaches.
 
 ## Evaluation Metric
 
@@ -81,7 +81,9 @@ The models were therefore compared based on their **F1-score** to determine whic
 ## Files
 
 * `credit_card_fraud_detection.ipynb` — Complete analysis, preprocessing, model training, tuning, and evaluation.
+
 ## Conclusion
 
 This project compares multiple machine learning approaches for credit card fraud detection and evaluates their ability to identify fraudulent transactions using the F1-score.
-Based on the F1-score, the XGB CLASSSIFIER achieved the best performance with an F1-score of 0.95 on the training set and 0.90 on the CV set. This suggests that it provided the best balance between precision and recall among the models evaluated.
+
+The **XGBoost Classifier** achieved the highest performance among the evaluated models, with an F1-score of **0.95 on the training set** and **0.90 on the cross-validation set**. The cross-validation result indicates strong performance on unseen validation data while helping assess the model's ability to generalize beyond the training data.
