@@ -1,74 +1,69 @@
 # Credit Card Fraud Detection
 
-A machine learning project focused on detecting fraudulent credit card transactions. The project compares several classification models and evaluates their performance using the F1-score.
+A supervised machine learning project for detecting fraudulent credit card transactions. This project was developed as practice while completing Andrew Ng's **Machine Learning Specialization**.
 
 ## Project Overview
 
-The goal of this project is to build and compare machine learning models capable of distinguishing between legitimate and fraudulent credit card transactions.
+The goal of this project is to compare different supervised machine learning algorithms for identifying fraudulent credit card transactions.
 
 The models evaluated are:
 
 * Logistic Regression
 * Decision Tree
 * Random Forest
-* XGBoost Classifier
+* XGBoost
 
-The project was developed using Python in Google Colab.
+Because fraudulent transactions represent a very small proportion of the dataset, **F1 score** was used as the primary evaluation metric rather than accuracy.
 
 ## Dataset
 
-The project uses a credit card fraud dataset from Kaggle containing legitimate and fraudulent transactions.
+* **Source:** [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+* **Transactions:** 284,807
+* **Features:** 30
+* **Fraud rate:** approximately 0.17%
+* Features V1–V28 are anonymized PCA-transformed features.
 
-Because fraudulent transactions represent a much smaller proportion of the dataset, the classification problem is highly imbalanced.
+## Approach
 
-## Models
+### 1. Data Splitting
 
-### Logistic Regression
+The dataset was divided into:
 
-Used as a baseline classification model.
+* **60%** training set
+* **20%** cross-validation set
+* **20%** test set
 
-### Decision Tree
+### 2. Preprocessing
 
-A Decision Tree was trained and tuned using:
+For the Logistic Regression model, features were standardized using `StandardScaler`, with the scaler fitted only on the training data and then applied to the cross-validation and test sets.
 
-* `max_depth`
-* `min_samples_split`
+### 3. Model Training and Evaluation
 
-### Random Forest
+Four supervised learning algorithms were compared:
 
-The Random Forest model was tuned using:
+* **Logistic Regression** — used as a baseline model
+* **Decision Tree** — evaluated with different `max_depth` and `min_samples_split` values
+* **Random Forest** — evaluated with different `max_depth`, `min_samples_split`, and `n_estimators` values
+* **XGBoost** — trained using 500 estimators with early stopping
 
-* `max_depth`
-* `min_samples_split`
-* `n_estimators`
+F1 score was calculated on the training, cross-validation, and test sets for each model.
 
-The `n_estimators` parameter controls the number of decision trees used in the forest.
+## Results
 
-### XGBoost Classifier
+| Model               |   Train F1 |      CV F1 |    Test F1 |
+| ------------------- | ---------: | ---------: | ---------: |
+| Logistic Regression |     0.7571 |     0.7467 |     0.6627 |
+| Decision Tree       |     0.7796 |     0.7861 |     0.6919 |
+| Random Forest       |     0.8940 |     0.8690 |     0.7955 |
+| XGBoost             | **0.9562** | **0.9024** | **0.8023** |
 
-XGBoost Classifier was included as a gradient-boosting model for comparison with the other classification approaches.
+## Conclusion
 
-## Evaluation Metric
+Among the four models tested, **XGBoost achieved the highest F1 score on the test set (0.8023)**, followed closely by Random Forest (0.7955).
 
-Because the dataset is highly imbalanced, accuracy alone can be misleading for fraud detection.
+This project provided practical experience with data preprocessing, supervised classification, model comparison, hyperparameter tuning, and evaluation on an imbalanced classification problem.
 
-The primary evaluation metric used in this project is the **F1-score**. The F1-score balances precision and recall into a single metric, making it useful for evaluating performance when both false positives and false negatives are important.
-
-The models were therefore compared based on their **F1-score** to determine which approach performed best at identifying fraudulent transactions.
-
-## Project Workflow
-
-1. Load and inspect the dataset
-2. Perform exploratory data analysis
-3. Preprocess the data
-4. Perform feature engineering
-5. Split the data for training and evaluation
-6. Train multiple classification models
-7. Tune selected model hyperparameters
-8. Evaluate models using F1-score
-9. Compare model performance
-
-## Technologies
+## Tools & Technologies
 
 * Python
 * Pandas
@@ -77,13 +72,3 @@ The models were therefore compared based on their **F1-score** to determine whic
 * XGBoost
 * Matplotlib
 * Google Colab
-
-## Files
-
-* `credit_card_fraud_detection.ipynb` — Complete analysis, preprocessing, model training, tuning, and evaluation.
-
-## Conclusion
-
-This project compares multiple machine learning approaches for credit card fraud detection and evaluates their ability to identify fraudulent transactions using the F1-score.
-
-The **XGBoost Classifier** achieved the highest performance among the evaluated models, with an F1-score of **0.95 on the training set** and **0.90 on the cross-validation set**. The cross-validation result indicates strong performance on unseen validation data while helping assess the model's ability to generalize beyond the training data.
